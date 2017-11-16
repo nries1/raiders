@@ -1,0 +1,38 @@
+body {
+    background-color: black;
+}
+
+#gameBoard {
+    background-color: white;
+    width: 500px;
+    height: 700px;
+    position: relative;
+}
+
+#vipor {
+    width: 90px;
+    height: 48px;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+
+.raiders {
+    position: absolute;
+    top: 20px;
+    left: 360px;
+    width: 80px;
+    height: auto;
+}
+
+.missiles {
+    position: absolute;
+    width: 25px;
+    height: auto;
+}
+
+.explosions {
+    width: 60px;
+    height: auto;
+    position: absolute;
+}
