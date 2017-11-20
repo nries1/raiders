@@ -4,9 +4,21 @@
     <link rel="stylesheet" type="text/css" href="./resources/css/style.css">
 </head>
 <body>
+    <!-- instuctions here -->
+      <div id="instructionsBox">
+          <h1>Raiders Attack</h1>
+          <p>Raiders are atticking our position.<br>
+              Kill them before they can reach the colonial fleet.<br></p>
+          <p>Raiders = 10 points</p>
+          <p>hostages = 30 points</p>
+          <p>nuclear materials = 150points</p>
+          <button onclick="startGame()">
+              Play
+          </button>
+      </div>
+    <!-- end instructions -->
     <div id="gameBoard">
         <img id="vipor" src="./resources/images/vipor.jpg">
-        <img class="raiders" src="./resources/images/raider.jpg">
     </div>
     <div id="viporTestOutput">
     </div>
@@ -14,7 +26,7 @@
     </div>
     <div id="missileTestOutput">
     </div>
-    <button onclick="testMoveMissile()">
+    <button onclick="testFunction()">
         click to test
     </button>
     <script
