@@ -20,12 +20,20 @@ function testFunction() {
     };   
 };
 
+// next level function
+function nextLevel() {
+ console.log("next level");
+};
+
+// end next level function
+
+
 // end level function
-let levelCount = 0;
+let levelCount = 1;
 function endLevel() {
-   levelCount++;
    $("#gameBoard").css("display", "none");
    let endLevelDisplay = "<div id='endLevelDisplay'><p>Level "+levelCount+" complete!<br></p><button onClick='nextLevel()'>Next Level</button></div>"
+   $("#endLevelDisplay").css("display", "inherit");
    if ($("#endLevelDisplay").length) {
        return;
    } else {
@@ -91,6 +99,8 @@ function sendHostage(topPosition, leftPosition) {
 // start gamefunction here
 function startGame() {
     $("#instructionsBox").css("display", "none");
+    $("#endLevelDisplay").css("display", "none");
+    $("#gameBoard").css("display", "inherit");
     $("#gameBoard").css("visibility", "visible");
     setInterval(generateRaiders, 5000);
 };
@@ -104,9 +114,10 @@ const topStartPositionsArray = [50, 160, 270, 380, 490, 600];
 let raiderCounter = 0;
 
 function generateRaiders() {
-    if (gameOver) {
+    if (gameOver === true) {
         return;
     } else {
+        console.log("generate raiders");
     let leftStartPosition = 720;
     let tempStartArray = topStartPositionsArray;
     let startArray = [];
@@ -234,14 +245,15 @@ function fireMissile() {
              }, 500);
              hitRaider = true;
              if (!$(".raiders").length) {
+                 gameOver = true;
                  endLevel();
              }; 
              return false; 
-           }
+           };
     });
     if (missileStartPosition < 782 && hitRaider === false) {
         setTimeout(function() {moveMissile(firedMissile) }, 10);   
-     } else if (missileStartPosition >= 782 && hitRaider === false){                                                                                                                             // the moveMissile() function had to be called by an anonymous
+     } else if (missileStartPosition >= 782 && hitRaider === false){                                                                 gameOver = true;                                            // the moveMissile() function had to be called by an anonymous
        endGame();                                                  // function here because when called without one, the setTimeout
        firedMissile.remove();                                      // executed instantly, as many times as needed to make the 
        return;                                                     // missile reach 479 pixels, making the movement appear to
@@ -251,12 +263,12 @@ function fireMissile() {
 };
 
 
-// Global objects and variables here //
+// Global objects and variables here
 const missilePositionObject = {55: "", 165: "", 275: "", 385: "", 495: "", 605: ""};
 
 let keyPressObject = {38: false, 40: false, 32: false, 39: false, 37: false};
 
-// End global objects and variables here //
+// End global objects and variables here
 $(document).keyup(function(event) {
     keyPressObject[event.which] = (event.type == 'keydown');
 });
