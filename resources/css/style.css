@@ -2,7 +2,7 @@ body {
     background-color: black;
 }
 
-#instructionsBox {
+#instructionsBox, #endGameDisplay {
     width: 500px;
     height: 700px;
     background-color: black;
@@ -11,7 +11,7 @@ body {
 
 #gameBoard {
     background-color: white;
-    width: 500px;
+    width: 800px;
     height: 700px;
     position: relative;
 }
@@ -41,5 +41,11 @@ body {
 .explosions {
     width: 60px;
     height: auto;
+    position: absolute;
+}
+
+.hostages {
+    width: 20px;
+    height: 25px;
     position: absolute;
 }
