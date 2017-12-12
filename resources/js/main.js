@@ -22,7 +22,8 @@ function testFunction() {
 
 // next level function
 function nextLevel() {
- console.log("next level");
+ gameOver = false;
+ startGame();
 };
 
 // end next level function
@@ -73,6 +74,9 @@ function sendHostage(topPosition, leftPosition) {
   moveHostage($("#"+hostageId));
     
  function moveHostage(currentHostage) {
+  if (gameOver) {
+      return;
+  } else {
   let currentViporLeftPosition = $("#vipor").offset().left;
   let currentViporTopPosition = $("#vipor").offset().top;
   currentHostageLeftpositon = currentHostageLeftpositon - 4;
@@ -92,6 +96,7 @@ function sendHostage(topPosition, leftPosition) {
         return;
     }
   };
+ };
 };
 
 // end send hostagefunction
