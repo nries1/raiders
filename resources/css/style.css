@@ -2,7 +2,7 @@ body {
     background-color: black;
 }
 
-#instructionsBox, #endGameDisplay {
+#instructionsBox, #endGameDisplay, #endLevelDisplay {
     width: 500px;
     height: 700px;
     background-color: black;

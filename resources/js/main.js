@@ -20,6 +20,21 @@ function testFunction() {
     };   
 };
 
+// end level function
+let levelCount = 0;
+function endLevel() {
+   levelCount++;
+   $("#gameBoard").css("display", "none");
+   let endLevelDisplay = "<div id='endLevelDisplay'><p>Level "+levelCount+" complete!<br></p><button onClick='nextLevel()'>Next Level</button></div>"
+   if ($("#endLevelDisplay").length) {
+       return;
+   } else {
+       $(document.body).append(endLevelDisplay);
+   };
+};
+
+// end end level function
+
 
 // end game function
 let gameOver = false;
@@ -218,12 +233,16 @@ function fireMissile() {
                 $("#"+explosionId).remove();
              }, 500);
              hitRaider = true;
-             return false;
+             if (!$(".raiders").length) {
+                 endLevel();
+             }; 
+             return false; 
            }
     });
-    if (missileStartPosition < 780 && hitRaider === false) {
-        setTimeout(function() {moveMissile(firedMissile) }, 10);   // the moveMissile() function had to be called by an anonymous
-     } else {                                                      // function here because when called without one, the setTimeout
+    if (missileStartPosition < 782 && hitRaider === false) {
+        setTimeout(function() {moveMissile(firedMissile) }, 10);   
+     } else if (missileStartPosition >= 782 && hitRaider === false){                                                                                                                             // the moveMissile() function had to be called by an anonymous
+       endGame();                                                  // function here because when called without one, the setTimeout
        firedMissile.remove();                                      // executed instantly, as many times as needed to make the 
        return;                                                     // missile reach 479 pixels, making the movement appear to
      };                                                            // happen instantaneously.
