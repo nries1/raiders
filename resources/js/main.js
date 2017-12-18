@@ -45,11 +45,7 @@ function endLevel(levelNum) {
    $("#gameBoard").css("display", "none");
    let $endLevelDisplay = $("<div id='endLevelDisplay'><p>Level "+levelNum+" complete!<br></p><button onClick='nextLevel()'>Next Level</button></div>");
    $endLevelDisplay.css("display", "inherit");
-   //if ($("#endLevelDisplay").length) {
-   //    return;
-   //} else {
-       $(document.body).append($endLevelDisplay);
-   //};
+   $("#endLevelContainer").html($endLevelDisplay);
 };
 
 // end end level function
@@ -251,7 +247,7 @@ function fireMissile() {
              let explosionId = "explosionNo"+raidersKilled;
              $(this).replaceWith("<img id="+explosionId+" class='explosions' src='./resources/images/explosion.png'>");
              $("#"+explosionId).offset({top: firedMissile.offset().top, left: firedMissile.offset().left});
-             if (Math.random() <= .25 ) {
+             if (Math.random() <= .35 ) {
                 sendHostage(firedMissile.offset().top, firedMissile.offset().left);
              };
              firedMissile.remove();
