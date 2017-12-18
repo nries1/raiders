@@ -22,6 +22,7 @@ function testFunction() {
 
 // next level function
 function nextLevel() {
+ levelEnded = false;
  gameOver = false;
  startGame();
 };
@@ -30,16 +31,25 @@ function nextLevel() {
 
 
 // end level function
-let levelCount = 1;
-function endLevel() {
+let levelCount = 0;
+let levelEnded = false;
+function endLevel(levelNum) {
+    levelEnded = true;
+    console.log(levelNum);
+    $(".hostages").each(function() {
+        $(this).remove();
+    });
+    $(".missiles").each(function() {
+        $(this).remove();
+    });
    $("#gameBoard").css("display", "none");
-   let endLevelDisplay = "<div id='endLevelDisplay'><p>Level "+levelCount+" complete!<br></p><button onClick='nextLevel()'>Next Level</button></div>"
-   $("#endLevelDisplay").css("display", "inherit");
-   if ($("#endLevelDisplay").length) {
-       return;
-   } else {
-       $(document.body).append(endLevelDisplay);
-   };
+   let $endLevelDisplay = $("<div id='endLevelDisplay'><p>Level "+levelNum+" complete!<br></p><button onClick='nextLevel()'>Next Level</button></div>");
+   $endLevelDisplay.css("display", "inherit");
+   //if ($("#endLevelDisplay").length) {
+   //    return;
+   //} else {
+       $(document.body).append($endLevelDisplay);
+   //};
 };
 
 // end end level function
@@ -66,7 +76,7 @@ let hostageCounter = 0;
 function sendHostage(topPosition, leftPosition) {
   hostageCounter++;
   let hostageId = "hostageNo"+hostageCounter;
-  let $hostage = "<img id="+hostageId+" class='hostages' src='./resources/images/astronaut.jpg'>";
+  let $hostage = "<img id="+hostageId+" class='hostages' src='./resources/images/hostage.jpg'>";
   $("#gameBoard").append($hostage);
   $("#"+hostageId).offset({top: topPosition, left: leftPosition});
   let currentHostageLeftpositon = $("#"+hostageId).offset().left;
@@ -251,14 +261,15 @@ function fireMissile() {
              hitRaider = true;
              if (!$(".raiders").length) {
                  gameOver = true;
-                 endLevel();
+                 levelCount++;
+                 endLevel(levelCount);
              }; 
              return false; 
            };
     });
     if (missileStartPosition < 782 && hitRaider === false) {
         setTimeout(function() {moveMissile(firedMissile) }, 10);   
-     } else if (missileStartPosition >= 782 && hitRaider === false){                                                                 gameOver = true;                                            // the moveMissile() function had to be called by an anonymous
+     } else if (missileStartPosition >= 782 && hitRaider === false && levelEnded !== true) {                                           gameOver = true;                                            // the moveMissile() function had to be called by an anonymous
        endGame();                                                  // function here because when called without one, the setTimeout
        firedMissile.remove();                                      // executed instantly, as many times as needed to make the 
        return;                                                     // missile reach 479 pixels, making the movement appear to
