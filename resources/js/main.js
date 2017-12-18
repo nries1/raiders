@@ -113,7 +113,8 @@ function startGame() {
     $("#endLevelDisplay").css("display", "none");
     $("#gameBoard").css("display", "inherit");
     $("#gameBoard").css("visibility", "visible");
-    setInterval(generateRaiders, 5000);
+    //setInterval(generateRaiders, 5000);
+    generateRaiders();
 };
 // end start game function
 
@@ -125,7 +126,7 @@ const topStartPositionsArray = [50, 160, 270, 380, 490, 600];
 let raiderCounter = 0;
 
 function generateRaiders() {
-    if (gameOver === true) {
+    if (gameOver === true || levelEnded === true) {
         return;
     } else {
         console.log("generate raiders");
@@ -178,6 +179,9 @@ function generateRaiders() {
              }               
             }
         };
+    setInterval(function() {
+        generateRaiders();
+    }, 5000);
 };
 // end generate raider function
 
