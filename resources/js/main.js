@@ -179,9 +179,13 @@ function generateRaiders() {
              }               
             }
         };
-    setInterval(function() {
-        generateRaiders();
-    }, 5000);
+    if (gameOver === true || levelEnded === true) {
+        return;
+    } else {
+             setTimeout(function() {
+                                     generateRaiders();
+                                    }, 5000);
+    };
 };
 // end generate raider function
 
