@@ -89,6 +89,8 @@ function sendHostage(topPosition, leftPosition) {
   currentHostageTopPosition = currentHostage.offset().top;
   currentHostage.offset({left: currentHostageLeftpositon});
   if ((currentHostageLeftpositon - currentViporLeftPosition) < 90 &&
+       (currentHostageLeftpositon - currentViporLeftPosition) > -5 &&
+       (currentHostageTopPosition - currentViporTopPosition) > -15 &&
        (currentHostageTopPosition - currentViporTopPosition) < 15) {
       currentHostage.remove();
       rescueCounter++;
@@ -98,6 +100,7 @@ function sendHostage(topPosition, leftPosition) {
      setTimeout(function() { moveHostage(currentHostage);}, 100);
    } else
     if (currentHostageLeftpositon <= 70) {
+        console.log("hostage got to the basestar");
         endGame();
         return;
     }
@@ -173,6 +176,7 @@ function generateRaiders() {
                   moveRaider(currentRaider, leftPosition);
                 }, 1000);
              } else if(currentRaider.offset().left <= 70 && currentRaider.offset().left > 0) {
+               console.log("raider got back to the basestar");
                endGame();
                gameOver = true;
                return;
@@ -242,6 +246,9 @@ function fireMissile() {
     moveMissile($("#"+missileId));
     
     function moveMissile(firedMissile) {
+    if (levelEnded || gameOver) {
+        return;
+    } else {
     let hitRaider = false;
     missileStartPosition++;
     firedMissile.offset({left: missileStartPosition});
@@ -264,6 +271,7 @@ function fireMissile() {
              }, 500);
              hitRaider = true;
              if (!$(".raiders").length) {
+                 console.log("level ended");
                  gameOver = true;
                  levelCount++;
                  endLevel(levelCount);
@@ -272,14 +280,17 @@ function fireMissile() {
            };
     });
     if (missileStartPosition < 782 && hitRaider === false) {
-        setTimeout(function() {moveMissile(firedMissile) }, 10);   
-     } else if (missileStartPosition >= 782 && hitRaider === false && levelEnded !== true) {                                           gameOver = true;                                            // the moveMissile() function had to be called by an anonymous
+        if (!gameOver && !levelEnded) {
+        setTimeout(function() {moveMissile(firedMissile) }, 10);
+        };
+     } else if (missileStartPosition >= 782 && hitRaider === false && levelEnded !== true) {                                           console.log("you hit the galactica");
+       gameOver = true;                                            // the moveMissile() function had to be called by an anonymous
        endGame();                                                  // function here because when called without one, the setTimeout
        firedMissile.remove();                                      // executed instantly, as many times as needed to make the 
        return;                                                     // missile reach 479 pixels, making the movement appear to
      };                                                            // happen instantaneously.
     };
-    
+  };
 };
 
 
