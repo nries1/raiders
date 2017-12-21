@@ -132,7 +132,7 @@ function generateRaiders() {
     if (gameOver === true || levelEnded === true) {
         return;
     } else {
-        console.log("generate raiders");
+    console.log("generate raiders");
     let leftStartPosition = 720;
     let tempStartArray = topStartPositionsArray;
     let startArray = [];
@@ -145,9 +145,7 @@ function generateRaiders() {
         let randomTopStartPosition = tempStartArray[tempStartIndex];
         startArray.push(randomTopStartPosition);
         if (startArray[i]===startArray[i-1] || startArray[i]===startArray[i-2]) {
-            //console.log("matching raiders detected");
             setTimeout(function() {
-              //console.log("function fired");
               $("#gameBoard").append($raider);
               $("#"+raiderId).offset({top: randomTopStartPosition, left: leftStartPosition});
               let currentRaiderTopPosition = $("#"+raiderId).offset().top;
@@ -186,9 +184,7 @@ function generateRaiders() {
     if (gameOver === true || levelEnded === true) {
         return;
     } else {
-             setTimeout(function() {
-                                     generateRaiders();
-                                    }, 5000);
+        setTimeout(generateRaiders, 5000);
     };
 };
 // end generate raider function
